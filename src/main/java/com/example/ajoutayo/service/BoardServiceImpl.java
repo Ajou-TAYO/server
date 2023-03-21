@@ -1,8 +1,8 @@
 package com.example.ajoutayo.service;
 
 import java.util.List;
-import com.example.ajoutayo.model.dao.BoardMapper;
-import com.example.ajoutayo.model.dto.BoardDto;
+import com.example.ajoutayo.mapper.BoardMapper;
+import com.example.ajoutayo.dto.BoardDto;
 
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void uploadBoard(BoardDto board) {
-        boardMapper.uploadBoard(board);
+    public void uploadBoard(BoardDto boardDto) {
+        boardMapper.uploadBoard(boardDto);
     }
 }

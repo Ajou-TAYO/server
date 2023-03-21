@@ -2,13 +2,10 @@ package com.example.ajoutayo.service;
 
 import java.util.List;
 
-import com.example.ajoutayo.model.dao.BoardMapper;
-import com.example.ajoutayo.model.dto.BoardDto;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.ajoutayo.dto.BoardDto;
 
 public interface BoardService {
     public List<BoardDto> getAllBoardList();
 
-
-    public void uploadBoard(BoardDto board);
+    public void uploadBoard(BoardDto boardDto);
 }

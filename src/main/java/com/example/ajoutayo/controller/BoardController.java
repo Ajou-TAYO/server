@@ -2,13 +2,10 @@ package com.example.ajoutayo.controller;
 
 import java.util.List;
 
-import com.example.ajoutayo.model.dto.BoardDto;
+import com.example.ajoutayo.dto.BoardDto;
 import com.example.ajoutayo.service.BoardService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +21,7 @@ public class BoardController {
     }
 
     @PostMapping("/upload")
-    public void uploadBoard(BoardDto board) {
-        boardService.uploadBoard(board);
+    public void uploadBoard(@RequestBody BoardDto boardDto) {
+        boardService.uploadBoard(boardDto);
     }
 }

@@ -3,15 +3,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.ajoutayo.model.dao.BoardMapper">
+<mapper namespace="com.example.ajoutayo.mapper.BoardMapper">
 
-    <select id="getAllBoardList" resultType="com.example.ajoutayo.model.dto.BoardDto">
+    <select id="getAllBoardList" resultType="com.example.ajoutayo.dto.BoardDto">
         SELECT * FROM board;
     </select>
 
-    <insert id="uploadBoard" parameterType="com.example.ajoutayo.model.dto.BoardDto">
-        INSERT INTO tbl_board (title, content, count)
+    <insert id="uploadBoard" parameterType="com.example.ajoutayo.dto.BoardDto">
+        INSERT INTO board (title, content)
         VALUES
-            (#{title}, #{content}, 0);
+            (#{title}, #{content});
     </insert>
 </mapper>
