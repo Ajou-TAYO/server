@@ -1,27 +1,23 @@
-package com.example.ajoutayo.dto;
+package com.example.ajoutayo.domain;
 
-import lombok.*;
+import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class BoardDto {
-    private String title;
-    private String content;
-    private int count;
-    private Long userId;
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class BaseTimeEntity {
     @CreatedDate
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
 }
-
