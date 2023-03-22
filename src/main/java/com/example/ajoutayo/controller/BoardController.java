@@ -21,8 +21,8 @@ public class BoardController {
         return boardService.getAllBoards();
     }
 
-    @PostMapping("/upload")
-    public void createBoard(@RequestBody CreateBoardDto createBoardDto) {
-        boardService.saveBoard(createBoardDto);
+    @PostMapping("/new")
+    public void createBoard(@RequestBody CreateBoardDto boardDto) {
+        boardService.saveBoard(boardDto);
     }
 }

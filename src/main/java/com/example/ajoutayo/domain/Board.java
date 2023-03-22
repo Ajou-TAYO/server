@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class Board extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long boardId;
@@ -20,14 +20,5 @@ public class Board {
     private Long userId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    public static Board createBoard(String title, String content ){
-        Board board = Board.builder()
-                .title(title)
-                .content(content)
-                .build();
-
-        return board;
-    }
 
 }

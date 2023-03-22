@@ -1,11 +1,13 @@
 package com.example.ajoutayo.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
 import com.example.ajoutayo.dto.CreateBoardDto;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
+//import com.github.dozermapper.core.Mapper;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
+    //private final Mapper mapper;
     private final BoardRepository boardRepository;
     @Override
     public List<Board> getAllBoards() {
@@ -21,9 +24,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void saveBoard(CreateBoardDto createBoardDto) {
+    @Transactional
+    public void saveBoard(CreateBoardDto boardDto) {
+        Board board = Board.builder()
+                .title(boardDto.getTitle())
+                .content(boardDto.getContent())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .count(0)
+                .build();
 
-    }
+        boardRepository.save(board);
+        }
 
     @Override
     public int viewCount(Long boardId) {

@@ -1,13 +1,10 @@
 package com.example.ajoutayo.dto;
 
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 public class CreateBoardDto {
     private String title;
     private String content;
-    private Long userId;
-    @CreatedDate
-    private LocalDateTime createdAt;
 }
