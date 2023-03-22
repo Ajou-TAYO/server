@@ -29,8 +29,6 @@ public class BoardServiceImpl implements BoardService {
         Board board = Board.builder()
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .count(0)
                 .build();
 
