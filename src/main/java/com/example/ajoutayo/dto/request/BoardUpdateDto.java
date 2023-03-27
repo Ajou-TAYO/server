@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BoardUpdateDto {
-    @Nullable()
     private String title;
     private String content;
 }
