@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDto {
+public class BoardResponseDto {
     private long boardId;
     private String title;
     private String content;
@@ -22,7 +22,7 @@ public class BoardDto {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public BoardDto(Board entity) {
+    public BoardResponseDto(Board entity) {
         this.boardId = entity.getBoardId();
         this.title = entity.getTitle();
         this.content = entity.getContent();

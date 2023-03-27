@@ -23,4 +23,9 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private long userId;
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
 }
