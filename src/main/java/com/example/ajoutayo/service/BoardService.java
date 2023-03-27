@@ -3,10 +3,11 @@ package com.example.ajoutayo.service;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
-import com.example.ajoutayo.dto.*;
+import com.example.ajoutayo.dto.request.CreateBoardDto;
+import com.example.ajoutayo.dto.response.BoardDto;
 
 public interface BoardService {
-    BoardResponseDto getBoard(Long boardId);
+    BoardDto getBoard(Long boardId);
     Long saveBoard(CreateBoardDto createBoardDto);
     List<Board> getAllBoards();
 

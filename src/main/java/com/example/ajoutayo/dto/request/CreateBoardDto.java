@@ -1,4 +1,4 @@
-package com.example.ajoutayo.dto;
+package com.example.ajoutayo.dto.request;
 
 import com.example.ajoutayo.domain.Board;
 import lombok.Getter;
@@ -15,7 +15,6 @@ public class CreateBoardDto {
     private String content;
     private int count;
     private long userId;
-    @CreatedDate
     private LocalDateTime createdAt;
 
     public Board toEntity() {

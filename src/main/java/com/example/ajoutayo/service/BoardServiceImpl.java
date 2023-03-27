@@ -3,8 +3,8 @@ package com.example.ajoutayo.service;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
-import com.example.ajoutayo.dto.BoardResponseDto;
-import com.example.ajoutayo.dto.CreateBoardDto;
+import com.example.ajoutayo.dto.response.BoardDto;
+import com.example.ajoutayo.dto.request.CreateBoardDto;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
 //import com.github.dozermapper.core.Mapper;
@@ -21,11 +21,11 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     @Override
     @Transactional(readOnly = true)
-    public BoardResponseDto getBoard(Long boardId) {
+    public BoardDto getBoard(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(()
                 -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
 
-        return new BoardResponseDto(board);
+        return new BoardDto(board);
     }
     @Override
     @Transactional

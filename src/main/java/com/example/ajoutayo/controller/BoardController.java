@@ -3,10 +3,10 @@ package com.example.ajoutayo.controller;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
-import com.example.ajoutayo.dto.*;
+import com.example.ajoutayo.dto.request.CreateBoardDto;
+import com.example.ajoutayo.dto.response.BoardDto;
 import com.example.ajoutayo.service.BoardService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
     private final BoardService boardService;
     @GetMapping("/{id}")
-    public BoardResponseDto getBoard(@PathVariable("id") Long id){
+    public BoardDto getBoard(@PathVariable("id") Long id){
         return boardService.getBoard(id);
     }
     @DeleteMapping("/{id}")

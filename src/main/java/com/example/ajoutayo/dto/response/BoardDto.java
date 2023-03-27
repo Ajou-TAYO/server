@@ -1,4 +1,4 @@
-package com.example.ajoutayo.dto;
+package com.example.ajoutayo.dto.response;
 
 import com.example.ajoutayo.domain.Board;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardResponseDto {
+public class BoardDto {
     private long boardId;
     private String title;
     private String content;
@@ -22,7 +22,7 @@ public class BoardResponseDto {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public BoardResponseDto(Board entity) {
+    public BoardDto(Board entity) {
         this.boardId = entity.getBoardId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
