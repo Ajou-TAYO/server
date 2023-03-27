@@ -6,12 +6,13 @@ import com.example.ajoutayo.domain.Board;
 import com.example.ajoutayo.dto.*;
 
 public interface BoardService {
+    BoardResponseDto getBoard(Long boardId);
+    Long saveBoard(CreateBoardDto createBoardDto);
     List<Board> getAllBoards();
-    void saveBoard(CreateBoardDto createBoardDto);
-    int viewCount(Long boardId);
-    Board getBoard(Long boardId);
+
+    int viewCount(int boardId);
     void updateBoard(CreateBoardDto createBoardDto);
-    void deleteBoard(Long boardId);
+    void deleteBoard(int boardId);
 
 
 }

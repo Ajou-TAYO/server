@@ -1,9 +1,9 @@
 package com.example.ajoutayo.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
+import com.example.ajoutayo.dto.BoardResponseDto;
 import com.example.ajoutayo.dto.CreateBoardDto;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
@@ -16,34 +16,41 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
-    //private final Mapper mapper;
     private final BoardRepository boardRepository;
+    @Override
+    @Transactional(readOnly = true)
+    public BoardResponseDto getBoard(Long boardId) {
+        /*
+        Optional<Board> board = boardRepository.findById(boardId);
+
+        if(board.isPresent()) {
+            return board.get();
+        }else{
+            return board.orElse(null);
+        }
+        Board board = boardRepository.findById(boardId).get();
+        return board;*/
+        Board board = boardRepository.findById(boardId).orElseThrow(()
+                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+
+        return new BoardResponseDto(board);
+    }
+    @Override
+    @Transactional
+    public Long saveBoard(CreateBoardDto boardDto) {
+        return boardRepository.save(boardDto.toEntity()).getBoardId();
+    }
     @Override
     public List<Board> getAllBoards() {
         return boardRepository.findAll();
     }
 
-    @Override
-    @Transactional
-    public void saveBoard(CreateBoardDto boardDto) {
-        Board board = Board.builder()
-                .title(boardDto.getTitle())
-                .content(boardDto.getContent())
-                .count(0)
-                .build();
-
-        boardRepository.save(board);
-        }
 
     @Override
-    public int viewCount(Long boardId) {
+    public int viewCount(int boardId) {
         return 0;
     }
 
-    @Override
-    public Board getBoard(Long boardId) {
-        return null;
-    }
 
     @Override
     public void updateBoard(CreateBoardDto createBoardDto) {
@@ -51,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteBoard(Long boardId) {
+    public void deleteBoard(int boardId) {
 
     }
 

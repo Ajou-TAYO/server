@@ -6,23 +6,29 @@ import com.example.ajoutayo.domain.Board;
 import com.example.ajoutayo.dto.*;
 import com.example.ajoutayo.service.BoardService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/boards/**")
+@RequestMapping("/boards/")
 public class BoardController {
-    private final BoardService boardService;
-    @GetMapping("/")
-    public List<Board> getAllBoards() {
 
-        return boardService.getAllBoards();
+    private final BoardService boardService;
+    @GetMapping("/{id}")
+    public BoardResponseDto getBoard(@PathVariable("id") Long id){
+        return boardService.getBoard(id);
     }
 
     @PostMapping("/new")
-    public void createBoard(@RequestBody CreateBoardDto boardDto) {
-        boardService.saveBoard(boardDto);
+    public Long createBoard(@RequestBody CreateBoardDto boardDto) {
+        return boardService.saveBoard(boardDto);
     }
+    @GetMapping("")
+    public List<Board> getAllBoards() {
+        return boardService.getAllBoards();
+    }
+
 }
