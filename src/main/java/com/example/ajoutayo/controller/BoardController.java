@@ -25,7 +25,7 @@ public class BoardController {
     public void deleteBoard(@PathVariable("id") Long id){
         boardService.deleteBoard(id);
     }
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public BoardResponseDto updateBoard(@PathVariable("id") Long id, @RequestBody BoardUpdateDto boardUpdateDto){
         return boardService.updateBoard(id, boardUpdateDto);
     }

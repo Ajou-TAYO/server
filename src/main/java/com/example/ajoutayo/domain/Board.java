@@ -24,8 +24,10 @@ public class Board extends BaseTimeEntity {
     private long userId;
 
     public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+        if (title != null)
+            this.title = title;
+        if(content != null)
+            this.content = content;
     }
 
 }
