@@ -10,9 +10,9 @@ public interface BoardService {
     Long saveBoard(CreateBoardDto createBoardDto);
     List<Board> getAllBoards();
 
-    int viewCount(int boardId);
+    int viewCount(Long boardId);
     void updateBoard(CreateBoardDto createBoardDto);
-    void deleteBoard(int boardId);
+    void deleteBoard(Long boardId);
 
 
 }

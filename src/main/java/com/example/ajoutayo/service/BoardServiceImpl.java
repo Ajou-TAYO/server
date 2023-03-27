@@ -8,6 +8,7 @@ import com.example.ajoutayo.dto.CreateBoardDto;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
 //import com.github.dozermapper.core.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,24 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
+    @Autowired
     private final BoardRepository boardRepository;
     @Override
     @Transactional(readOnly = true)
     public BoardResponseDto getBoard(Long boardId) {
-        /*
-        Optional<Board> board = boardRepository.findById(boardId);
-
-        if(board.isPresent()) {
-            return board.get();
-        }else{
-            return board.orElse(null);
-        }
-        Board board = boardRepository.findById(boardId).get();
-        return board;*/
         Board board = boardRepository.findById(boardId).orElseThrow(()
                 -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
 
         return new BoardResponseDto(board);
+    }
+    @Override
+    @Transactional
+    public void deleteBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
     }
     @Override
     @Transactional
@@ -44,23 +41,12 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> getAllBoards() {
         return boardRepository.findAll();
     }
-
-
     @Override
-    public int viewCount(int boardId) {
+    public int viewCount(Long boardId) {
         return 0;
     }
-
-
     @Override
     public void updateBoard(CreateBoardDto createBoardDto) {
 
     }
-
-    @Override
-    public void deleteBoard(int boardId) {
-
-    }
-
-    ;
 }
