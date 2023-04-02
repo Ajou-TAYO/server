@@ -3,15 +3,17 @@ package com.example.ajoutayo.service;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
-import com.example.ajoutayo.dto.*;
+import com.example.ajoutayo.dto.request.BoardCreateDto;
+import com.example.ajoutayo.dto.request.BoardUpdateDto;
+import com.example.ajoutayo.dto.response.BoardResponseDto;
 
 public interface BoardService {
-    public List<Board> getAllBoards();
-    public void saveBoard(CreateBoardDto createBoardDto);
-    public int viewCount(Long boardId);
-    public Board getBoard(Long boardId);
-    public void updateBoard(CreateBoardDto createBoardDto);
-    public void deleteBoard(Long boardId);
+    BoardResponseDto getBoard(Long boardId);
+    Long saveBoard(BoardCreateDto createBoardCreateDto);
+    List<Board> getAllBoards();
+    int viewCount(Long boardId);
+    BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto);
+    void deleteBoard(Long boardId);
 
 
 }
