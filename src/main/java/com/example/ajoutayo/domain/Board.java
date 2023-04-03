@@ -1,8 +1,10 @@
 package com.example.ajoutayo.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -19,15 +21,21 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private Integer count;
+    private int count;
     @Column(nullable = false)
     private long userId;
 
+    @Column(nullable = true)
+    private LocalDateTime updatedAt;
     public void update(String title, String content) {
         if (title != null)
             this.title = title;
         if(content != null)
             this.content = content;
+        this.updatedAt = LocalDateTime.now();
     }
 
+    public void viewCountUp(Board board) {
+        board.count++;
+    }
 }

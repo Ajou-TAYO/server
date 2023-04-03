@@ -21,22 +21,31 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+<<<<<<< HEAD
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+=======
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+>>>>>>> 03a6b997d92371a6206e9c70d9e8f028a45bd765
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+<<<<<<< HEAD
 	implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 }
 
 
 
+=======
+}
+
+>>>>>>> 03a6b997d92371a6206e9c70d9e8f028a45bd765
 tasks.named('test') {
 	useJUnitPlatform()
 }

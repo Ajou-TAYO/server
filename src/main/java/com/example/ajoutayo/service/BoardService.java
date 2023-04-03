@@ -7,13 +7,15 @@ import com.example.ajoutayo.dto.request.BoardCreateDto;
 import com.example.ajoutayo.dto.request.BoardUpdateDto;
 import com.example.ajoutayo.dto.response.BoardResponseDto;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public interface BoardService {
     BoardResponseDto getBoard(Long boardId);
     Long saveBoard(BoardCreateDto createBoardCreateDto);
     List<Board> getAllBoards();
-    int viewCount(Long boardId);
+    List<Board> getBoardsByKeyWord(String keyword);
+    void viewCount(Long boardId, HttpServletRequest request, HttpServletResponse response);
     BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto);
     void deleteBoard(Long boardId);
-
-
 }
