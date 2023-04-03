@@ -74,22 +74,24 @@ public class BoardServiceImpl implements BoardService {
 
         if (oldCookie != null) {
             if (!oldCookie.getValue().contains("[" + boardId.toString() + "]")) {
-                boardRepository.updateView(boardId);
+                Board board = boardRepository.findById(boardId).orElseThrow(()
+                        -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                board.viewCountUp(board);
+
                 oldCookie.setValue(oldCookie.getValue() + "_[" + boardId + "]");
                 oldCookie.setPath("/");
                 oldCookie.setMaxAge(60 * 60 * 24);
                 response.addCookie(oldCookie);
             }
         } else {
-            boardRepository.updateView(boardId);
+            Board board = boardRepository.findById(boardId).orElseThrow(()
+                    -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+            board.viewCountUp(board);
+
             Cookie newCookie = new Cookie("boardView", "[" + boardId + "]");
             newCookie.setPath("/");
             newCookie.setMaxAge(60 * 60 * 24);
             response.addCookie(newCookie);
         }
-
-        Board board = boardRepository.findById(boardId).orElseThrow(()
-                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
-        board.viewCountUp(board);
     }
 }
