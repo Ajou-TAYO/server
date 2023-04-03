@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
     private final BoardService boardService;
     @GetMapping("/{id}")
-    public BoardResponseDto getBoard(@PathVariable("id") Long id){
+    public BoardResponseDto getBoard(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response){
+        boardService.viewCount(id, request, response); // views ++
         return boardService.getBoard(id);
     }
     @DeleteMapping("/{id}")

@@ -19,7 +19,7 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private Integer count;
+    private int count;
     @Column(nullable = false)
     private long userId;
 
@@ -30,4 +30,7 @@ public class Board extends BaseTimeEntity {
             this.content = content;
     }
 
+    public void viewCountUp(Board board) {
+        board.count++;
+    }
 }
