@@ -8,7 +8,6 @@ import com.example.ajoutayo.dto.request.BoardUpdateDto;
 import com.example.ajoutayo.dto.response.BoardResponseDto;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
-//import com.github.dozermapper.core.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
