@@ -56,7 +56,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public int viewCount(Long boardId) {
-        return 0;
+        return boardRepository.updateView(boardId);
     }
 }

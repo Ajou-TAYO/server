@@ -19,6 +19,7 @@ public class BoardController {
     private final BoardService boardService;
     @GetMapping("/{id}")
     public BoardResponseDto getBoard(@PathVariable("id") Long id){
+        boardService.viewCount(id); // views ++
         return boardService.getBoard(id);
     }
     @DeleteMapping("/{id}")
