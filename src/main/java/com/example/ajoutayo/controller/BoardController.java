@@ -47,10 +47,24 @@ public class BoardController {
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.CREATE_BOARD,board));
 
     }
+    @GetMapping("/search")
+    public ResponseEntity<?>  searchBoards(String searchKeyword) {
+        List<Board> serachBoardList = boardService.getBoardsByKeyWord(searchKeyword);
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_BOARD, serachBoardList));
+    }
     @GetMapping("")
-    public ResponseEntity<?>  getAllBoards() {
-        List<Board> boardList = boardService.getAllBoards();
-        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_BOARD, boardList));
+    public ResponseEntity<?>  getAllBoards(String searchKeyword) {
+        List<Board> boardList = null;
+        String response = null;
+        if(searchKeyword==null) {
+            boardList = boardService.getAllBoards();
+            response=ResponseMessage.GET_ALL_BOARD;
+
+        }else{
+            boardList = boardService.getBoardsByKeyWord(searchKeyword);
+            response=ResponseMessage.SEARCH_SUCCESS;
+        }
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, response, boardList));
     }
 
 }
