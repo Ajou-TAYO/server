@@ -57,6 +57,12 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> getAllBoards() {
         return boardRepository.findAll();
     }
+    @Override
+    @Transactional
+    public List<Board> getBoardsByKeyWord(String keyword) {
+        List<Board> boardsList = boardRepository.findByTitleContaining(keyword);
+        return boardsList;
+    }
 
     @Override
     @Transactional
