@@ -14,8 +14,6 @@ public class ResponseMessage {
     public static final String UPDATE_BOARD = "공지 수정 성공";
     public static final String DELETE_BOARD = "공지 삭제 성공";
     public static final String SEARCH_SUCCESS = "검색 성공";
-    public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
-    public static final String DB_ERROR = "데이터베이스 에러";
 
 
 }

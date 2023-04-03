@@ -6,6 +6,8 @@ import com.example.ajoutayo.domain.Board;
 import com.example.ajoutayo.dto.request.BoardCreateDto;
 import com.example.ajoutayo.dto.request.BoardUpdateDto;
 import com.example.ajoutayo.dto.response.BoardResponseDto;
+import com.example.ajoutayo.exceptions.BoardErrorCode;
+import com.example.ajoutayo.exceptions.CustomApiException;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional(readOnly = true)
     public BoardResponseDto getBoard(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(()
-                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
 
         return new BoardResponseDto(board);
     }
@@ -48,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto) {
         Board board = boardRepository.findById(boardId).orElseThrow(()
-                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
 
         board.update(boardUpdateDto.getTitle(), boardUpdateDto.getContent());
         return new BoardResponseDto(board);
@@ -81,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
         if (oldCookie != null) {
             if (!oldCookie.getValue().contains("[" + boardId.toString() + "]")) {
                 Board board = boardRepository.findById(boardId).orElseThrow(()
-                        -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                        -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
                 board.viewCountUp(board);
 
                 oldCookie.setValue(oldCookie.getValue() + "_[" + boardId + "]");
@@ -91,7 +93,7 @@ public class BoardServiceImpl implements BoardService {
             }
         } else {
             Board board = boardRepository.findById(boardId).orElseThrow(()
-                    -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                    -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
             board.viewCountUp(board);
 
             Cookie newCookie = new Cookie("boardView", "[" + boardId + "]");
