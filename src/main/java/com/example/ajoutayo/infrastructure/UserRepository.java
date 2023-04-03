@@ -9,7 +9,6 @@ import com.example.ajoutayo.domain.SiteUser;
 
 @Repository
 public interface UserRepository extends JpaRepository<SiteUser, Long> {
-	Optional<SiteUser> findByusername(String username);
 	Optional<SiteUser> findByEmail(String email);
 
 }

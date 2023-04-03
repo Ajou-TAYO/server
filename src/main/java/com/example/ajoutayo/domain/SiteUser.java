@@ -28,7 +28,7 @@ public class SiteUser {
 
     private String password;
 
-    @Column
+    // @Column
     // 관리자인지 사용자인지
-    private boolean type;
+    // private boolean type;
 }
