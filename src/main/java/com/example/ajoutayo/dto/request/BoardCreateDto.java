@@ -4,6 +4,8 @@ import com.example.ajoutayo.domain.Board;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class BoardCreateDto {
@@ -17,6 +19,7 @@ public class BoardCreateDto {
                 .title(title)
                 .content(content)
                 .userId(0)
+                .updatedAt(LocalDateTime.now())
                 .count(0)
                 .build();
     }

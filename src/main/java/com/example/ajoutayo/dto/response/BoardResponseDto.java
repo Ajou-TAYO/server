@@ -17,9 +17,7 @@ public class BoardResponseDto {
     private String content;
     private int count;
     private long userId;
-    @CreatedDate
     private LocalDateTime createdAt;
-    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public BoardResponseDto(Board entity) {
