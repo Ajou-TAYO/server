@@ -12,11 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name="members")
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Member implements UserDetails {
 
     @Id
