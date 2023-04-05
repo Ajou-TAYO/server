@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/boards")
+@RequestMapping("bus/boards")
 public class BoardController {
     private final BoardService boardService;
     @GetMapping("/{id}")
