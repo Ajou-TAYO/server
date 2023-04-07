@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/members/login").permitAll()
                 .antMatchers("/members/signup").permitAll()
+                .antMatchers("/members/email/requestCode").permitAll()
                 .antMatchers("/bus/boards/new").hasRole("ADMIN")
                 .antMatchers("/bus/boards/**").permitAll()
 

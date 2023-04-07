@@ -1,6 +1,7 @@
 package com.example.ajoutayo.controller;
 
 import com.example.ajoutayo.dto.StatusCode;
+import com.example.ajoutayo.dto.request.EmailRequestDto;
 import com.example.ajoutayo.dto.request.LoginRequestDto;
 import com.example.ajoutayo.dto.request.SignupRequestDto;
 import com.example.ajoutayo.dto.response.DefaultResponse;
@@ -32,19 +33,28 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {
+        memberService.verifyCode(signupRequestDto.getEmail(),signupRequestDto.getVerificationCode());
         MemberResponseDto memberInfo = memberService.signup(signupRequestDto);
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.CREATED_USER, memberInfo));
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         String email = loginRequestDto.getEmail();
         String password = loginRequestDto.getPassword();
+
         TokenDto tokenDto = memberService.login(email, password);
-        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, tokenDto));
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType()+tokenDto.getAccessToken());
+
+        //return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, tokenDto));
+        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<?> findMemberInfoByEmail(@PathVariable String email) {
-        return ResponseEntity.ok(memberService.findMemberInfoByEmail(email));
+    @PostMapping("/email/requestCode")
+    public ResponseEntity<?> authEmail(@RequestBody @Valid EmailRequestDto emailDto) {
+        memberService.authEmail(emailDto);
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.REQUEST_EMAIL_VERIFICATION));
     }
 }
