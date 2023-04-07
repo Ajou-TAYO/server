@@ -1,5 +1,6 @@
 package com.example.ajoutayo.service;
 
+import com.example.ajoutayo.domain.Auth;
 import com.example.ajoutayo.domain.Member;
 import com.example.ajoutayo.dto.request.SignupRequestDto;
 import com.example.ajoutayo.dto.response.MemberResponseDto;
@@ -38,7 +39,7 @@ public class MemberService {
         Member member = Member.builder()
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
-                //.authorities(Collections.singleton(authority))
+                .auth(Auth.MEMBER)
                 .build();
 
         memberRepository.save(member);
