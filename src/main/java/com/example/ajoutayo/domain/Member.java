@@ -6,9 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -17,34 +15,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Member implements UserDetails {
-
     @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long memberId;
+
     @Column(updatable = false, unique = true, nullable = false, length = 20)
-    private String memberId;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Auth auth;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for (String role : auth.getValue().split(",")) {
+            roles.add(new SimpleGrantedAuthority(role));
+        }
+        return roles;
     }
-
     @Override
     public String getUsername() {
-        return memberId;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
+        return email;
     }
 
     @Override
