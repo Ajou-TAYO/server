@@ -29,7 +29,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/members")
 public class MemberController {
+    private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {
@@ -39,22 +41,36 @@ public class MemberController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
-        String email = loginRequestDto.getEmail();
-        String password = loginRequestDto.getPassword();
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                loginRequestDto.getEmail(), loginRequestDto.getPassword());
+        try {
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        TokenDto tokenDto = memberService.login(email, password);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType()+tokenDto.getAccessToken());
+            TokenDto tokenDto = jwtTokenProvider.generateToken(authentication);
 
-        //return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, tokenDto));
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType()+tokenDto.getAccessToken());
 
+            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            if (e.getMessage().equals("활성화되지 않은 유저입니다."))
+                throw new CustomApiException(AuthErrorCode.INACTIVE_USER);
+            else
+                throw e;
+        }
     }
 
-    @PostMapping("/email/requestCode")
+    @PostMapping("/email/request")
     public ResponseEntity<?> authEmail(@RequestBody @Valid EmailRequestDto emailDto) {
         memberService.authEmail(emailDto);
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.REQUEST_EMAIL_VERIFICATION));
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity<?> checkEmailDuplicate(@RequestBody @Valid EmailRequestDto emailDto) {
+        boolean validEmail = memberService.checkEmailDuplicate(emailDto.getEmail());
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.VALID_EMAILE, validEmail));
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum AuthErrorCode implements ErrorCode {
 
     INACTIVE_USER(HttpStatus.FORBIDDEN, "비활성화 상태인 유저입니다."),
-
+    DUP_EMAIL(HttpStatus.BAD_REQUEST, "이미 가입한 이메일입니다."),
     NOT_AJOU_EMAIL(HttpStatus.BAD_REQUEST, "아주대학교 이메일이 아닙니다."),
     EMAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "이메일 전송 실패"),
     WRONG_VERIFICATION_CODE(HttpStatus.BAD_REQUEST, "인증 코드가 올바르지 않거나 만료되었습니다."),

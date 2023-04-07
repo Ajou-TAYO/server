@@ -1,6 +1,5 @@
 package com.example.ajoutayo.exceptions;
 
-import com.example.ajoutayo.dto.StatusCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

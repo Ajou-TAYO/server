@@ -7,22 +7,18 @@ import com.example.ajoutayo.dto.request.SignupRequestDto;
 import com.example.ajoutayo.dto.response.MemberResponseDto;
 import com.example.ajoutayo.dto.response.TokenDto;
 import com.example.ajoutayo.exceptions.AuthErrorCode;
-import com.example.ajoutayo.exceptions.CommonErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
-import com.example.ajoutayo.exceptions.MemberErrorCode;
 import com.example.ajoutayo.infrastructure.MemberRepository;
 import com.example.ajoutayo.jwt.JwtTokenProvider;
 import com.example.ajoutayo.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +42,7 @@ public class MemberService {
 
     @Transactional
     public MemberResponseDto signup(SignupRequestDto signupRequestDto) {
-        if (memberRepository.existsByEmail(signupRequestDto.getEmail())) {
-            throw new CustomApiException(MemberErrorCode.DUP_EMAIL);
-        }
+        checkEmailDuplicate(signupRequestDto.getEmail());
 
         Member member = Member.builder()
                 .email(signupRequestDto.getEmail())
@@ -59,18 +53,6 @@ public class MemberService {
         memberRepository.save(member);
 
         return new MemberResponseDto(member);
-    }
-
-    public MemberResponseDto findMemberInfoById(Long memberId) {
-        return memberRepository.findById(memberId)
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-    }
-
-    public MemberResponseDto findMemberInfoByEmail(String email) {
-        return memberRepository.findByEmail(email)
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
 
     public TokenDto login(String email, String password) throws BadCredentialsException {
@@ -95,13 +77,15 @@ public class MemberService {
     }
 
     private void sendAuthEmail(String email, String authKey) {
+        checkEmailDuplicate(email);
 
-        String subject = "AjouTayo - Email Verification";
+        String subject = "🔥AjouTayo 회원 가입 인증 이메일 입니다🔥";
         String text = "<h2>AjouTayo  이메일 인증 코드</h2>"
                 + "<p>이메일 인증 코드 : <strong>" + authKey
-                + "</strong></p><p>인증 코드는 5분 후에 만료됩니다. 시간 내에 인증 부탁드립니다.</p>"
-                + "<p>인증이 원활히 이루어지지 않을 시 다시 로그인을 시도해주세요.</p>";
-        checkAjouEmail(email);
+                + "</strong></p><p>인증 코드는 5분 후에 만료되오니, 시간 내에 인증 완료 부탁 드립니다 :)</p>"
+                + "<p>인증이 원활히 이루어지지 않을 시 다시 로그인을 시도해주세요</p>";
+
+        checkValidAjouEmail(email);
         try {
 
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -119,7 +103,7 @@ public class MemberService {
         redisUtil.setDataExpire(email, authKey, 60 * 5L);
     }
 
-    private void checkAjouEmail(String email) {
+    private void checkValidAjouEmail(String email) {
         int idx = email.indexOf("@");
         String domain = email.substring(idx + 1);
         if (!domain.equals("ajou.ac.kr")) {
@@ -134,4 +118,14 @@ public class MemberService {
             throw new CustomApiException(AuthErrorCode.WRONG_VERIFICATION_CODE);
         }
     }
+
+    @Transactional(readOnly = true)
+    public boolean checkEmailDuplicate(String email) {
+        boolean existEmail = memberRepository.existsByEmail(email);
+        if(existEmail){
+            throw new CustomApiException(AuthErrorCode.DUP_EMAIL);
+        }
+        return memberRepository.existsByEmail(email);
+    }
+
 }

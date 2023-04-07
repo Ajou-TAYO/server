@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class JwtTokenProvider  {
+public class JwtTokenProvider {
 
-    private final Key key;
+    private Key key;
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer ";
@@ -108,4 +108,5 @@ public class JwtTokenProvider  {
             return e.getClaims();
         }
     }
+
 }
