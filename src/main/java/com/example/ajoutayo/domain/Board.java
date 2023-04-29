@@ -1,5 +1,6 @@
 package com.example.ajoutayo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Board extends BaseTimeEntity {
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int count;
+    @JsonIgnore
     @Column(nullable = false)
     private long userId;
 

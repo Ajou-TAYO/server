@@ -2,6 +2,7 @@ package com.example.ajoutayo.dto.response;
 
 public class ResponseMessage {
     public static final String LOGIN_SUCCESS = "로그인 성공";
+    public static final String LOGOUT_SUCCESS = "로그아웃 성공";
     public static final String LOGIN_FAIL = "로그인 실패";
     public static final String REQUEST_EMAIL_VERIFICATION= "이메일 인증 메일 발송 성공";
     public static final String VALID_EMAILE = "사용 가능한 이메일";

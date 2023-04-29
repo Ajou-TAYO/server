@@ -1,8 +1,13 @@
 package com.example.ajoutayo.controller;
 
+import antlr.Token;
+import com.example.ajoutayo.dto.StatusCode;
 import com.example.ajoutayo.dto.request.LoginRequestDto;
+import com.example.ajoutayo.dto.response.DefaultResponse;
+import com.example.ajoutayo.dto.response.ResponseMessage;
 import com.example.ajoutayo.dto.response.TokenDto;
 import com.example.ajoutayo.exceptions.AuthErrorCode;
+import com.example.ajoutayo.exceptions.CommonErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.example.ajoutayo.jwt.JwtAuthenticationFilter;
 import com.example.ajoutayo.jwt.JwtTokenProvider;
@@ -14,8 +19,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -36,9 +44,12 @@ public class MemberController {
             TokenDto tokenDto = jwtTokenProvider.generateToken(authentication);
 
             HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType()+tokenDto.getAccessToken());
+            httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType() + tokenDto.getAccessToken());
 
-            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            //return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            return ResponseEntity.ok()
+                    .headers(httpHeaders)
+                    .body(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS));
         } catch (RuntimeException e) {
             if (e.getMessage().equals("활성화되지 않은 유저입니다."))
                 throw new CustomApiException(AuthErrorCode.INACTIVE_USER);
@@ -46,6 +57,9 @@ public class MemberController {
                 throw e;
         }
     }
-
-
+    @GetMapping("/logout")
+    public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGOUT_SUCCESS));
+    }
 }

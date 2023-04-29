@@ -47,7 +47,7 @@ public class MemberService {
         Member member = Member.builder()
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
-                .auth(Auth.MEMBER)
+                .auth(Auth.MEMBER.toString())
                 .build();
 
         memberRepository.save(member);

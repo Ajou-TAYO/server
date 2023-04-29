@@ -24,17 +24,21 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Auth auth;
+    //@Enumerated(EnumType.STRING)
+    //private Auth auth;
+    private String auth;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
-        for (String role : auth.getValue().split(",")) {
+        //for (String role : auth.getValue().split(",")) {
+        for (String role : auth.split(",")) {
             roles.add(new SimpleGrantedAuthority(role));
         }
         return roles;
     }
+
     @Override
     public String getUsername() {
         return email;

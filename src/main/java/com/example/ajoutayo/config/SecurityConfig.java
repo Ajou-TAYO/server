@@ -52,6 +52,15 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
+                .and()
+                .logout()
+                .logoutSuccessUrl("/members/logout")
+                .invalidateHttpSession(true) //세션 날리기
+                .logoutSuccessUrl("/members/login")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/accessDenied")
+
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
                 .apply(new JwtSecurityConfig(jwtTokenProvider));
