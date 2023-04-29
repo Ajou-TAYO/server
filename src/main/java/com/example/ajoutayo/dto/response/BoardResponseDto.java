@@ -14,7 +14,7 @@ public class BoardResponseDto {
     private String title;
     private String content;
     private int count;
-    private long userId;
+    private String nickname;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -23,7 +23,7 @@ public class BoardResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.count = entity.getCount();
-        this.userId = entity.getUserId();
+        this.nickname = entity.getNickname();
         this.createdAt = entity.getCreatedAt();
         this.updatedAt = entity.getUpdatedAt();
     }

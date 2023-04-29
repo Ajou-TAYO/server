@@ -43,18 +43,20 @@ public class MemberService {
     @Transactional
     public MemberResponseDto signup(SignupRequestDto signupRequestDto) {
         checkEmailDuplicate(signupRequestDto.getEmail());
+        int idx = signupRequestDto.getEmail().indexOf("@");
 
         Member member = Member.builder()
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
                 .auth(Auth.MEMBER.toString())
+                .nickname(signupRequestDto.getEmail().substring(0, idx))
                 .build();
 
         memberRepository.save(member);
 
         return new MemberResponseDto(member);
     }
-
+    /*
     public TokenDto login(String email, String password) throws BadCredentialsException {
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
@@ -64,7 +66,7 @@ public class MemberService {
         TokenDto tokenDto = jwtTokenProvider.generateToken(authentication);
 
         return tokenDto;
-    }
+    }*/
 
 
     public void authEmail(EmailRequestDto request) {

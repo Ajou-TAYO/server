@@ -21,9 +21,9 @@ public class Board extends BaseTimeEntity {
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int count;
-    @JsonIgnore
+
     @Column(nullable = false)
-    private long userId;
+    private String nickname;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
