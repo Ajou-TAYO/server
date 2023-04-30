@@ -8,9 +8,10 @@ import com.example.ajoutayo.dto.response.MemberResponseDto;
 import com.example.ajoutayo.dto.response.TokenDto;
 import com.example.ajoutayo.exceptions.AuthErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
+import com.example.ajoutayo.exceptions.MemberErrorCode;
 import com.example.ajoutayo.infrastructure.MemberRepository;
 import com.example.ajoutayo.jwt.JwtTokenProvider;
-import com.example.ajoutayo.util.RedisUtil;
+import com.example.ajoutayo.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,7 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
@@ -130,4 +130,11 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    @Transactional(readOnly = true)
+    public String getNicknameWithAuth() {
+        Member member = SecurityUtil.getCurrentUsername()
+                .flatMap(memberRepository::findOneWithAuthByEmail)
+                .orElseThrow(() -> new CustomApiException(MemberErrorCode.MEMBER_NOT_FOUND));
+        return member.getNickname();
+    }
 }

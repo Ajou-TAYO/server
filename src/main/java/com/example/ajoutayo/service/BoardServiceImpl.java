@@ -3,13 +3,16 @@ package com.example.ajoutayo.service;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
+import com.example.ajoutayo.domain.Member;
 import com.example.ajoutayo.dto.request.BoardCreateDto;
 import com.example.ajoutayo.dto.request.BoardUpdateDto;
 import com.example.ajoutayo.dto.response.BoardResponseDto;
 import com.example.ajoutayo.exceptions.BoardErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
+import com.example.ajoutayo.exceptions.MemberErrorCode;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
+import com.example.ajoutayo.infrastructure.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +22,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.example.ajoutayo.domain.Auth.*;
+
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private final BoardRepository boardRepository;
+    @Autowired
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -37,18 +44,29 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public void deleteBoard(Long boardId) {
+    public void deleteBoard(Long boardId, String nickname) {
+        Board board = boardRepository.findById(boardId).orElseThrow(()
+                -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
+        if(!board.getNickname().equals(nickname)){
+            throw new CustomApiException(BoardErrorCode.NOT_MATCH_ROLE);
+        }
         boardRepository.deleteById(boardId);
     }
 
     @Override
     @Transactional
-    public Long saveBoard(BoardCreateDto boardCreateDto) {
-        return boardRepository.save(boardCreateDto.toEntity()).getBoardId();
+    public Long saveBoard(BoardCreateDto boardCreateDto, String email) {
+        String nickname = email.substring(0, email.indexOf("@"));
+
+        Board board =  boardRepository.save(boardCreateDto.toEntity());
+        board.saveNickname(nickname);
+
+        return board.getBoardId();
     }
     @Override
     @Transactional
     public BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto) {
+
         Board board = boardRepository.findById(boardId).orElseThrow(()
                 -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
 

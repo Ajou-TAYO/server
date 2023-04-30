@@ -1,5 +1,9 @@
 package com.example.ajoutayo.domain;
 
+import com.example.ajoutayo.exceptions.BoardErrorCode;
+import com.example.ajoutayo.exceptions.CustomApiException;
+import com.example.ajoutayo.exceptions.MemberErrorCode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,13 +29,19 @@ public class Member implements UserDetails {
     private String nickname;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     //@Enumerated(EnumType.STRING)
     //private Auth auth;
+    @Column(nullable = false)
     private String auth;
 
-
+    public void validateRole(Boolean isContaining, Auth... auth) {
+        if (isContaining.equals(Arrays.stream(auth).noneMatch(role -> role.equals(this.auth)))) {
+            throw new CustomApiException(BoardErrorCode.NOT_MATCH_ROLE);
+        }
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();

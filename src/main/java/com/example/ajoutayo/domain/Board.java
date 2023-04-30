@@ -1,6 +1,6 @@
 package com.example.ajoutayo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.ajoutayo.dto.request.BoardCreateDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +21,7 @@ public class Board extends BaseTimeEntity {
     private String content;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int count;
-
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nickname;
 
     @Column(nullable = false)
@@ -35,6 +34,9 @@ public class Board extends BaseTimeEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void saveNickname(String nickname){
+        this.nickname = nickname;
+    }
     public void viewCountUp(Board board) {
         board.count++;
     }
