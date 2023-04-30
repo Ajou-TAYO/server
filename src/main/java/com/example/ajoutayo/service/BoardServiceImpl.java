@@ -3,13 +3,11 @@ package com.example.ajoutayo.service;
 import java.util.List;
 
 import com.example.ajoutayo.domain.Board;
-import com.example.ajoutayo.domain.Member;
 import com.example.ajoutayo.dto.request.BoardCreateDto;
 import com.example.ajoutayo.dto.request.BoardUpdateDto;
 import com.example.ajoutayo.dto.response.BoardResponseDto;
 import com.example.ajoutayo.exceptions.BoardErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
-import com.example.ajoutayo.exceptions.MemberErrorCode;
 import com.example.ajoutayo.infrastructure.BoardRepository;
 
 import com.example.ajoutayo.infrastructure.MemberRepository;
@@ -21,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static com.example.ajoutayo.domain.Auth.*;
 
 @Transactional(readOnly = true)
 @Service
@@ -65,11 +61,12 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     @Transactional
-    public BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto) {
-
+    public BoardResponseDto updateBoard(Long boardId, String nickname, BoardUpdateDto boardUpdateDto) {
         Board board = boardRepository.findById(boardId).orElseThrow(()
                 -> new CustomApiException(BoardErrorCode.BOARD_NOT_EXIST));
-
+        if(!board.getNickname().equals(nickname)){
+            throw new CustomApiException(BoardErrorCode.NOT_MATCH_ROLE);
+        }
         board.update(boardUpdateDto.getTitle(), boardUpdateDto.getContent());
         return new BoardResponseDto(board);
     }

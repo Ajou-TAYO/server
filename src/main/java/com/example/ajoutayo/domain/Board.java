@@ -1,6 +1,5 @@
 package com.example.ajoutayo.domain;
 
-import com.example.ajoutayo.dto.request.BoardCreateDto;
 import lombok.*;
 
 import javax.persistence.*;

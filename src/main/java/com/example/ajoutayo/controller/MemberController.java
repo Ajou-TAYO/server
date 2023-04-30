@@ -1,19 +1,16 @@
 package com.example.ajoutayo.controller;
 
-import antlr.Token;
 import com.example.ajoutayo.dto.StatusCode;
 import com.example.ajoutayo.dto.request.LoginRequestDto;
 import com.example.ajoutayo.dto.response.DefaultResponse;
 import com.example.ajoutayo.dto.response.ResponseMessage;
 import com.example.ajoutayo.dto.response.TokenDto;
 import com.example.ajoutayo.exceptions.AuthErrorCode;
-import com.example.ajoutayo.exceptions.CommonErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.example.ajoutayo.jwt.JwtAuthenticationFilter;
 import com.example.ajoutayo.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,7 +43,6 @@ public class MemberController {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, tokenDto.getGrantType() + tokenDto.getAccessToken());
 
-            //return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
             return ResponseEntity.ok()
                     .headers(httpHeaders)
                     .body(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS));

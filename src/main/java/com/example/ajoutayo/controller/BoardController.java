@@ -13,9 +13,7 @@ import com.example.ajoutayo.service.BoardService;
 
 import com.example.ajoutayo.service.MemberService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -44,7 +42,8 @@ public class BoardController {
     }
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateBoard(@PathVariable("id") Long id, @RequestBody BoardUpdateDto boardUpdateDto){
-        BoardResponseDto board= boardService.updateBoard(id, boardUpdateDto);
+        String nickname = memberService.getNicknameWithAuth();
+        BoardResponseDto board= boardService.updateBoard(id, nickname, boardUpdateDto);
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.UPDATE_BOARD,board));
     }
     @PostMapping("/new")

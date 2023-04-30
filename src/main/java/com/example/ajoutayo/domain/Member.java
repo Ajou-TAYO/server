@@ -2,7 +2,6 @@ package com.example.ajoutayo.domain;
 
 import com.example.ajoutayo.exceptions.BoardErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
-import com.example.ajoutayo.exceptions.MemberErrorCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,8 +31,6 @@ public class Member implements UserDetails {
     @JsonIgnore
     private String password;
 
-    //@Enumerated(EnumType.STRING)
-    //private Auth auth;
     @Column(nullable = false)
     private String auth;
 
@@ -45,7 +42,6 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
-        //for (String role : auth.getValue().split(",")) {
         for (String role : auth.split(",")) {
             roles.add(new SimpleGrantedAuthority(role));
         }

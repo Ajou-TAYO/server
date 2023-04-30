@@ -6,11 +6,9 @@ import com.example.ajoutayo.dto.request.SignupRequestDto;
 import com.example.ajoutayo.dto.response.DefaultResponse;
 import com.example.ajoutayo.dto.response.MemberResponseDto;
 import com.example.ajoutayo.dto.response.ResponseMessage;
-import com.example.ajoutayo.jwt.JwtTokenProvider;
 import com.example.ajoutayo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/members/signup")
 public class AuthController {
-    private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {

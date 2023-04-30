@@ -16,6 +16,6 @@ public interface BoardService {
     List<Board> getAllBoards();
     List<Board> getBoardsByKeyWord(String keyword);
     void viewCount(Long boardId, HttpServletRequest request, HttpServletResponse response);
-    BoardResponseDto updateBoard(Long boardId, BoardUpdateDto boardUpdateDto);
+    BoardResponseDto updateBoard(Long boardId, String nickname, BoardUpdateDto boardUpdateDto);
     void deleteBoard(Long boardId, String nickname);
 }
