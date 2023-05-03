@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .antMatchers("/members/signup/**").permitAll()
                 .antMatchers("/bus/boards/new").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers("/bus/boards/**").permitAll()
+                .antMatchers("/bus/map/**").permitAll()
 
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
