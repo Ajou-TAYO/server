@@ -10,7 +10,6 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 public class RedisUtil {
-
     private final StringRedisTemplate redisTemplate;
 
     // key를 통해 value 리턴

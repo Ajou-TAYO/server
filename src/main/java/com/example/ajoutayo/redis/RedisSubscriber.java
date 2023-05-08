@@ -1,5 +1,8 @@
 package com.example.ajoutayo.redis;
 
+import com.example.ajoutayo.dto.request.BusDto;
+import com.example.ajoutayo.exceptions.CommonErrorCode;
+import com.example.ajoutayo.exceptions.CustomApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,32 +12,35 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class RedisSubscriber implements MessageListener {
+public class RedisSubscriber implements MessageListener { //실제 메시지를 처리하는 비즈니스 로직 담음
     private final ObjectMapper objectMapper;
     private final RedisTemplate redisTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
 
+    /**
+     * Redis에서 메시지가 publish되면 대기하고 있던 onMessage가 해당 메시지를 받아 처리
+     */
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        /*
         try {
-
+            // redis에서 발행된 데이터를 받아 역직렬화
             String publishMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
+            //데이터 예시: +QGPSLOC: (timestamp),37.28072,127.04351
 
-            ChatMessageRequest roomMessage = objectMapper.readValue(publishMessage, ChatMessageRequest.class);
+            String[] fields = publishMessage.split(",");
+            Timestamp time = Timestamp.valueOf(fields[0].substring(9));
+            Double x = Double.parseDouble(fields[1]);
+            Double y = Double.parseDouble(fields[2]);
 
-            if (roomMessage.getType().equals(MessageType.TALK)) {
-                GetChatMessageResponse chatMessageResponse = new GetChatMessageResponse(roomMessage);
-                messagingTemplate.convertAndSend("/sub/chat/room/" + roomMessage.getRoomId(), chatMessageResponse);
-            }
-
-            ...
-
+            BusDto busDto = new BusDto(x,y,time);
+            messagingTemplate.convertAndSend("/topic/location", objectMapper.writeValueAsString(busDto));
         } catch (Exception e) {
-            throw new ChatMessageNotFoundException();
-        }*/
+            throw new CustomApiException(CommonErrorCode.NOT_FOUND);
+        }
     }
 }

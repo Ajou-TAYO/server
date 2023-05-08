@@ -1,33 +1,28 @@
 package com.example.ajoutayo.config;
 
+import com.example.ajoutayo.redis.RedisPublisher;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.*;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSocketMessageBroker
-@RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-    //private final StompHandler stompHandler;
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub"); //TODO: 구독 요청 prefix 넣기
-        registry.setApplicationDestinationPrefixes("/pub"); //TODO: 메시지 발행 요청 prefix 넣기
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");//(sub)
+        config.setApplicationDestinationPrefixes("/app");//(pub)
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/bus/map") //클라이언트에서 웹소캣에 접속할 수 있는 endpoint
-                .setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/location") // ws://localhost:8080/location
+                .setAllowedOrigins("*").withSockJS();
     }
-    /*
-    @Override
-    public void configureClientInboundChannel (ChannelRegistration registration){
-        registration.interceptors(stompHandler);
-    }*/
+
 }

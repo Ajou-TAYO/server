@@ -4,6 +4,7 @@ import com.example.ajoutayo.jwt.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
@@ -48,9 +49,15 @@ public class SecurityConfig {
                 .antMatchers("/members/login").permitAll()
                 .antMatchers("/members/signup/**").permitAll()
                 .antMatchers("/bus/boards/new").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.DELETE,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.PATCH,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.POST,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers("/bus/boards/**").permitAll()
-                .antMatchers("/bus/map/**").permitAll()
-
+                .antMatchers("/bus/{id}").permitAll()
+                .antMatchers("/bus/").permitAll()
+                .antMatchers("/app/**").permitAll()
+                .antMatchers("/connection/**").permitAll()
+                .antMatchers("/topic/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()
