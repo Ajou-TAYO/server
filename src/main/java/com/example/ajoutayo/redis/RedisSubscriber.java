@@ -1,6 +1,6 @@
 package com.example.ajoutayo.redis;
 
-import com.example.ajoutayo.dto.request.BusDto;
+import com.example.ajoutayo.dto.response.BusLocationResponseDto;
 import com.example.ajoutayo.exceptions.CommonErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,16 +29,19 @@ public class RedisSubscriber implements MessageListener { //실제 메시지를 
     public void onMessage(Message message, byte[] pattern) {
         try {
             // redis에서 발행된 데이터를 받아 역직렬화
+            //String busId = new String(message.getChannel());
+            String busId = (String) redisTemplate.getStringSerializer().deserialize(message.getChannel());
             String publishMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
-            //데이터 예시: +QGPSLOC: (timestamp),37.28072,127.04351
+            //데이터 : (timestamp),37.28072,127.04351
 
             String[] fields = publishMessage.split(",");
-            Timestamp time = Timestamp.valueOf(fields[0].substring(9));
+            Timestamp time = Timestamp.valueOf(fields[0]);
             Double x = Double.parseDouble(fields[1]);
             Double y = Double.parseDouble(fields[2]);
 
-            BusDto busDto = new BusDto(x,y,time);
-            messagingTemplate.convertAndSend("/topic/location", objectMapper.writeValueAsString(busDto));
+            BusLocationResponseDto busLocationResponseDto = new BusLocationResponseDto(x,y,time);
+            //messagingTemplate.convertAndSend("/topic/location", objectMapper.writeValueAsString(busLocationResponseDto));
+            messagingTemplate.convertAndSend("/bus/" + busId + "/location", objectMapper.writeValueAsString(busLocationResponseDto));
         } catch (Exception e) {
             throw new CustomApiException(CommonErrorCode.NOT_FOUND);
         }

@@ -1,4 +1,4 @@
-package com.example.ajoutayo.dto.request;
+package com.example.ajoutayo.dto.response;
 
 import lombok.*;
 
@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusDto implements Serializable {
+public class BusLocationResponseDto implements Serializable {
+    //private String busId; //bus01, bus02, bus03
     private double x;
     private double y;
     private Timestamp time;
