@@ -1,7 +1,6 @@
 # Ajou-TAYO-server
 
 API SEVER URL(dev): 
-http://localhost:8080
 
 API 명세서:  
 
