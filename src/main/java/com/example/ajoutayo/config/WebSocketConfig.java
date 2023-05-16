@@ -14,7 +14,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "/bus/location") // ws://localhost:8080/bus/location
+        registry.addHandler(webSocketHandler, "/bin") // ws://localhost:8080/ws
                 .setAllowedOriginPatterns("*");
     }
 }

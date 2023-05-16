@@ -60,9 +60,8 @@ public class SecurityConfig {
                 .antMatchers("/bus/boards/**").permitAll()
                 .antMatchers("/bus/{id}").permitAll()
                 .antMatchers("/bus/").permitAll()
-                .antMatchers("/app/**").permitAll()
-                .antMatchers("/connection/**").permitAll()
-                .antMatchers("/topic/**").permitAll()
+                .antMatchers("/ws/**").permitAll()
+                .antMatchers("/bin/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()
