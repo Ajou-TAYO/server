@@ -4,7 +4,6 @@ API SEVER URL(dev):
 http://localhost:8080
 
 API 명세서:  
-https://documenter.getpostman.com/view/22267460/2s93RWQX5o
 
 
 ## Test
