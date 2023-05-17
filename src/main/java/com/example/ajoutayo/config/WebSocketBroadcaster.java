@@ -33,7 +33,6 @@ public class WebSocketBroadcaster extends TextWebSocketHandler {
     }
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        System.out.println(message);
     }
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {

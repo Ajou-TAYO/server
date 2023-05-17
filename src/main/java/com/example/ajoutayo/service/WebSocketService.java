@@ -1,24 +1,34 @@
 package com.example.ajoutayo.service;
 
+import com.example.ajoutayo.config.WebSocketBroadcaster;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.example.ajoutayo.exceptions.LocationErrorCode;
 import com.example.ajoutayo.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@EnableScheduling
 public class WebSocketService {
     private final RedisUtil redisUtil;
+    private final WebSocketBroadcaster webSocketBroadcaster;
 
-    public String getBusLocation(String key){
-        String value = redisUtil.getData(key);
+    @Scheduled(fixedDelay = 10000) // 10초마다 실행
+    public void Scheduler(){
+        Collection<String> list = Arrays.asList("bus01", "bus02","bus03");
+        redisUtil.getAllData(list);
+        list.forEach(s->getBusLocation(s, redisUtil.getData(s)));
+    }
+    public void getBusLocation(String key, String value){
+
         if(value==null){
             throw new CustomApiException(LocationErrorCode.BUS_NOT_FOUND);
         }
@@ -33,10 +43,7 @@ public class WebSocketService {
         fields[0] = sdf.format(date);
 
         String locationMessage = Arrays.toString(fields);
-        //BusLocationResponseDto location = new BusLocationResponseDto(x, y, time);
-
-
-        return locationMessage;
+        webSocketBroadcaster.broadcast(key+locationMessage);
     }
 
 }

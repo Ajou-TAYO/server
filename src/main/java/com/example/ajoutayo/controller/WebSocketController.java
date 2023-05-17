@@ -14,12 +14,11 @@ public class WebSocketController {
     private final WebSocketService webSocketService;
 
     @GetMapping("/bus/location")
-    public ResponseEntity<?> run() {
-        String location = webSocketService.getBusLocation("bus01");
-        webSocketBroadcaster.broadcast(location);
-
+    public ResponseEntity<?> getLocation() {
+        webSocketService.Scheduler();
         return ResponseEntity.ok().build();
     }
+
     @PostMapping("/ws/test")
     public ResponseEntity<?> test(@RequestBody String message) {
         webSocketBroadcaster.broadcast(message);

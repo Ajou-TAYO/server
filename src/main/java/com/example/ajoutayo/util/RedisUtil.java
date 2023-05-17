@@ -6,6 +6,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +17,12 @@ public class RedisUtil {
     // key를 통해 value 리턴
     public String getData(String key) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        System.out.println(key+" : "+valueOperations.get(key));
         return valueOperations.get(key);
+
+    }
+
+    public List<String> getAllData(Collection<String> keys) {
+        return redisTemplate.opsForValue().multiGet(keys);
     }
 
     public void setData(String key, String value) {
@@ -29,7 +35,6 @@ public class RedisUtil {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(duration);
         valueOperations.set(key, value, expireDuration);
-        System.out.println(getData(key));
     }
 
     // 삭제
