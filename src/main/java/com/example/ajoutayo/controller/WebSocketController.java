@@ -1,21 +1,22 @@
 package com.example.ajoutayo.controller;
 
 import com.example.ajoutayo.config.WebSocketBroadcaster;
+import com.example.ajoutayo.service.WebSocketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @RestController
 public class WebSocketController {
 
     private final WebSocketBroadcaster webSocketBroadcaster;
-    @GetMapping("/ws/run")
+    private final WebSocketService webSocketService;
+
+    @GetMapping("/bus/location")
     public ResponseEntity<?> run() {
-        IntStream.range(0, 100)
-                .forEach(n -> new Thread(() -> webSocketBroadcaster.broadcast("message: " + n)).start());
+        String location = webSocketService.getBusLocation("bus01");
+        webSocketBroadcaster.broadcast(location);
 
         return ResponseEntity.ok().build();
     }
