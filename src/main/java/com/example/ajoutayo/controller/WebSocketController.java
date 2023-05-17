@@ -18,10 +18,4 @@ public class WebSocketController {
         webSocketService.Scheduler();
         return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/ws/test")
-    public ResponseEntity<?> test(@RequestBody String message) {
-        webSocketBroadcaster.broadcast(message);
-        return ResponseEntity.ok().build();
-    }
 }

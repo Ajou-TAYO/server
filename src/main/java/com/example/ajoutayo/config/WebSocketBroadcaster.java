@@ -1,6 +1,5 @@
 package com.example.ajoutayo.config;
 
-import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
