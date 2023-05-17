@@ -3,7 +3,7 @@
 API SEVER URL(dev): 
 
 API 명세서:  
-
+https://documenter.getpostman.com/view/22267460/2s93RWQX5o 
 
 ## Test
 1. API 명세서에서 Request경로 및 형식, Response 예시  형식 확인
