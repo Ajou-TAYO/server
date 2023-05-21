@@ -1,0 +1,5 @@
+###
+WEBSOCKET ws://127.0.0.1:8080/bin
+
+###
+GET http://localhost:8080/bus/location

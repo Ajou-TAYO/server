@@ -36,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/email")
     public ResponseEntity<?> checkEmailDuplicate(@RequestBody @Valid EmailRequestDto emailDto) {
-        boolean validEmail = memberService.checkEmailDuplicate(emailDto.getEmail());
-        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.VALID_EMAILE, validEmail));
+        boolean mail = memberService.checkEmailDuplicate(emailDto.getEmail());
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.VALID_EMAILE, mail));
     }
 }

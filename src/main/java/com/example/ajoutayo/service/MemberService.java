@@ -111,7 +111,6 @@ public class MemberService {
 
     public void verifyCode(String key, String input) {
         String value = redisUtil.getData(key);
-        System.out.println(input + " " + value);
         if (!input.equals(value)) {
             throw new CustomApiException(AuthErrorCode.WRONG_VERIFICATION_CODE);
         }

@@ -4,6 +4,7 @@ import com.example.ajoutayo.jwt.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CorsFilter corsFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -26,6 +30,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 // exception handling 할 때 우리가 만든 클래스를 추가
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -48,8 +54,14 @@ public class SecurityConfig {
                 .antMatchers("/members/login").permitAll()
                 .antMatchers("/members/signup/**").permitAll()
                 .antMatchers("/bus/boards/new").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.DELETE,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.PATCH,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
+                .antMatchers(HttpMethod.POST,"/bus/boards/{id}").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers("/bus/boards/**").permitAll()
-
+                .antMatchers("/bus/{id}").permitAll()
+                .antMatchers("/bus/").permitAll()
+                .antMatchers("/ws/**").permitAll()
+                .antMatchers("/bin/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()
