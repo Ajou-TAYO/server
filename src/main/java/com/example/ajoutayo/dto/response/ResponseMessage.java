@@ -18,5 +18,7 @@ public class ResponseMessage {
     public static final String DELETE_BOARD = "공지 삭제 성공";
     public static final String SEARCH_SUCCESS = "검색 성공";
     public static final String GET_ALL_STATION_LOCATION = "전체 정류장 조회 성공";
-    public static final String GET_STATION_LOCATION = "정류장 조회 제공";
+    public static final String GET_STATION_LOCATION = "정류장 조회 성공";
+    public static final String GET_BUS_ROUTE="버스 노선 조회 성공";
+    public static final String GET_ALL_BUS_ROUTE="버스 노선 조회 성공";
 }
