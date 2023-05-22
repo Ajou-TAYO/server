@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class BusStop {
     @Id
+    @Column(name="bus_stop_id")
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 

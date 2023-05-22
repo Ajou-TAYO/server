@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -13,24 +14,27 @@ import static javax.persistence.FetchType.LAZY;
 @RequiredArgsConstructor
 public class BusRoute {
     @Id
+    @Column(name="bus_route_id")
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private BusRouteType type;
+    private String type;
 
     @Column(nullable = false, length = 15)
     private String name;
     @Column(nullable = false)
     private String departmentTimeList;
 
-    @JoinColumn(name="dep_bus_stop")
-    @OneToOne(cascade = CascadeType.DETACH, fetch = LAZY)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = EAGER)
+    @JoinColumn(name="dep_bus_stop_id")
     private BusStop depBusStop;
-    @JoinColumn(name="arr_bus_stop")
-    @OneToOne(cascade = CascadeType.DETACH, fetch = LAZY)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = EAGER)
+    @JoinColumn(name="mid_bus_stop_id")
+    private BusStop midBusStop;
+    @OneToOne(cascade = CascadeType.DETACH, fetch = EAGER)
+    @JoinColumn(name="arr_bus_stop_id")
     private BusStop arrBusStop;
 
 }

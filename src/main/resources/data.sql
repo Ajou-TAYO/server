@@ -5,11 +5,11 @@
 #INSERT INTO bus_stop(name, lat, lng) values ('율곡관 도로변',37.28174406129355, 127.04637346772104 );
 
 
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) VALUES ('광교중앙역', '등교',1,4,'08:30,08:50');
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) VALUES ('광교중앙역', '등교',1,3,'09:30,10:00,10:15,11:45,16:00,17:00');
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) values ('수원역', '등교',2,4,'08:20');
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) values ('수원역', '등교',2,3,'09:50,11:20');
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) values ('수원역','하교',3,2,'15:10,16:40');
-INSERT INTO bus_route(name,type,dep_bus_stop,arr_bus_stop, department_time_list) values ('수원역','하교',5,2,'18:10');
-INSERT INTO bus_route(name, type,dep_bus_stop,arr_bus_stop, department_time_list) values ('광교중앙역','하교',3,1,'08:20,08:40,09:20,09:55,10:05,11:35,13:10,14:35,16:05,17:20');
-INSERT INTO bus_route(name, type,dep_bus_stop,arr_bus_stop, department_time_list) values ('광교중앙역','하교',5,1,'18:10');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id,department_time_list) VALUES ('광교중앙역', '등교',1,5,4,'08:30,08:50');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) VALUES ('광교중앙역', '등교',1,5,3,'09:30,10:00,10:15,11:45,16:00,17:00');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('수원역', '등교',2,5,4,'08:20');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,arr_bus_stop_id, department_time_list) values ('수원역', '등교',2,3,'09:50,11:20');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,arr_bus_stop_id, department_time_list) values ('수원역','하교',3,2,'15:10,16:40');
+INSERT INTO bus_route(name,type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('수원역','하교',5,4,2,'18:10');
+INSERT INTO bus_route(name, type,dep_bus_stop_id,arr_bus_stop_id, department_time_list) values ('광교중앙역','하교',3,1,'08:20,08:40,09:20,09:55,10:05,11:35,13:10,14:35,16:05,17:20');
+INSERT INTO bus_route(name, type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('광교중앙역','하교',5,4,1,'18:10');
