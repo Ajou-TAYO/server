@@ -20,5 +20,7 @@ public class ResponseMessage {
     public static final String GET_ALL_STATION_LOCATION = "전체 정류장 조회 성공";
     public static final String GET_STATION_LOCATION = "정류장 조회 성공";
     public static final String GET_BUS_ROUTE="버스 노선 조회 성공";
-    public static final String GET_ALL_BUS_ROUTE="버스 노선 조회 성공";
+    public static final String GET_ALL_BUS_ROUTE="전체 버스 노선 조회 성공";
+    public static final String GET_ALL_PARTNERSHIP="전체 제휴업체 조회 성공";
+    public static final String GET_PARTNERSHIP="제휴업체 조회 성공";
 }
