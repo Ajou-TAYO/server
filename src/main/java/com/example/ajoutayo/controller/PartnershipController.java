@@ -1,5 +1,6 @@
 package com.example.ajoutayo.controller;
 
+import com.example.ajoutayo.domain.LocationType;
 import com.example.ajoutayo.domain.Partnership;
 import com.example.ajoutayo.dto.StatusCode;
 import com.example.ajoutayo.dto.response.DefaultResponse;
@@ -8,12 +9,10 @@ import com.example.ajoutayo.dto.response.ResponseMessage;
 import com.example.ajoutayo.service.PartnershipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,9 +25,9 @@ public class PartnershipController {
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_PARTNERSHIP, partnership));
     }
     @GetMapping("")
-    public ResponseEntity<?> getAllPartnership(){
+    public ResponseEntity<?> getAllPartnership(@RequestParam(required = false, name = "category") LocationType type){
         List<Partnership> partnershipList = partershipService.getAllPartnership();
-
+        partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(type.getTitle())).collect(Collectors.toList());
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
     }
 
