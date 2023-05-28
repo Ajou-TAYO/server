@@ -24,11 +24,16 @@ public class PartnershipController {
         PartnershipResponseDto partnership = partershipService.getPartnership(id);
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_PARTNERSHIP, partnership));
     }
+
     @GetMapping("")
-    public ResponseEntity<?> getAllPartnership(@RequestParam(required = false, name = "category") LocationType type){
+    //public ResponseEntity<?> getAllPartnershipWithCategory(@RequestParam(required = false, name = "category") LocationType type){
+    public ResponseEntity<?> getAllPartnerships(LocationType type){
         List<Partnership> partnershipList = partershipService.getAllPartnership();
-        partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(type.getTitle())).collect(Collectors.toList());
-        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
+        if(type!=null) {
+            partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(type.getTitle())).collect(Collectors.toList());
+        }
+            return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
     }
+
 
 }
