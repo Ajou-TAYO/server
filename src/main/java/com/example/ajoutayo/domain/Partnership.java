@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
@@ -21,6 +19,9 @@ public class Partnership {
 
     @Column(nullable = false)
     private String name;
+    @Enumerated(value= EnumType.STRING)
+    @Column()
+    private LocationType category;
     @Column()
     private String expired;
     @Column(nullable = false)

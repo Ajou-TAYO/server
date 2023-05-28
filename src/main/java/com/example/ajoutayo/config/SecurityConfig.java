@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .antMatchers("/bus/boards/**").permitAll()
                 .antMatchers("/bus/location/**").permitAll()
                 .antMatchers("/bin/**").permitAll()
+                .antMatchers("/partnerships/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()
