@@ -27,10 +27,10 @@ public class PartnershipController {
 
     @GetMapping("")
     //public ResponseEntity<?> getAllPartnershipWithCategory(@RequestParam(required = false, name = "category") LocationType type){
-    public ResponseEntity<?> getAllPartnerships(LocationType type){
+    public ResponseEntity<?> getAllPartnerships(LocationType category){
         List<Partnership> partnershipList = partershipService.getAllPartnership();
-        if(type!=null) {
-            partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(type.getTitle())).collect(Collectors.toList());
+        if(category!=null) {
+            partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(category.getTitle())).collect(Collectors.toList());
         }
             return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
     }
