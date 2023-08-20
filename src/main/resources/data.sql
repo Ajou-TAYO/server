@@ -13,3 +13,7 @@ INSERT INTO bus_route(name,type,dep_bus_stop_id,arr_bus_stop_id, department_time
 INSERT INTO bus_route(name,type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('수원역','하교',5,4,2,'18:10');
 INSERT INTO bus_route(name, type,dep_bus_stop_id,arr_bus_stop_id, department_time_list) values ('광교중앙역','하교',3,1,'08:20,08:40,09:20,09:55,10:05,11:35,13:10,14:35,16:05,17:20');
 INSERT INTO bus_route(name, type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('광교중앙역','하교',5,4,1,'18:10');
+
+INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214712');
+INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214334&article.offset=0');
+INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=211901&article.offset=10&articleLimit=10&srSearchVal=%EB%B2%84%EC%8A%A4');

@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Board extends BaseTimeEntity {
+public class Notice extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long boardId;
+    private Long noticeId;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class Board extends BaseTimeEntity {
     public void saveNickname(String nickname){
         this.nickname = nickname;
     }
-    public void viewCountUp(Board board) {
-        board.count++;
+    public void viewCountUp(Notice notice) {
+        notice.count++;
     }
 }

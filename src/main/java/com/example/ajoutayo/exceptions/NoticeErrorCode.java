@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum BoardErrorCode implements ErrorCode {
+public enum NoticeErrorCode implements ErrorCode {
     NOT_MATCH_ROLE(HttpStatus.FORBIDDEN, "해당 작업에 대한 권한이 없습니다."),
-    BOARD_NOT_EXIST(HttpStatus.NOT_FOUND, "해당 게시물이 존재하지 않습니다.");
+    NOTICE_NOT_EXIST(HttpStatus.NOT_FOUND, "해당 공지사항이 존재하지 않습니다.");
     private final HttpStatus httpStatus;
     private final String message;
 

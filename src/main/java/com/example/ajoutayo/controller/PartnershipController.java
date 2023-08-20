@@ -34,6 +34,11 @@ public class PartnershipController {
         }
             return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
     }
-
+//    @GetMapping("/{id}/reviews")
+//    public ResponseEntity<?> getAllReviewsOfPartnership(@PathVariable("id") Long id){
+//        //PartnershipResponseDto partnership = partershipService.getPartnership(id);
+//        List<Review> reviewList = partershipService.getAllReviewByPartnershipId(id);
+//        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_REVIEW_OF_PARTNERSHIP, reviewList));
+//    }
 
 }
