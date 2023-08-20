@@ -33,6 +33,27 @@ INSERT INTO partnership(category,name,detail,expired,lat,lng,image) values('PUB'
 INSERT INTO partnership(category,name,detail,expired,lat,lng,image) values('CAFE','스쿱스젤라또 팔달구2호점','도장 5개: 1가지 맛->2가지 맛으로 업그레이드 / 도장 10개: 1가지 맛 컵 무료 제공','12/31',127.043013,37.2792445 ,'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220212_257%2F1644655233288egadv_JPEG%2FKakaoTalk_20220212_173807441_16.jpg');
 INSERT INTO partnership(category,name,detail,expired,lat,lng,image) values('RESTAURANT','홍콩반점0410 아주대점','5만원 이상 결제 시, 군만두 제공','12/31',127.043396, 37.2785956,'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMjdfMjk0%2FMDAxNjc0Nzg1ODIzODk1.MflmeneWSe2OIxVtVooItCb7_AvSxVw_A5hltsOM2Ngg.6K-9-bCMW9eFB0jkG0aAfBPWn7bMc6C7kXmoeijl_pUg.JPEG.wpfhwleoqkddur%2F20221117_110257.jpg');
 
+# 교내 편의시설
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','교직원식당','기숙사 식당 2층',37.284638903, 127.045721198);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','감탄떡볶이 아주대학교점','제 1학생회관(구학생회관) 1층 아슐랭',37.283623118, 127.04536537366);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','바겟버거 아주대점','제 1학생회관(구학생회관) 1층 아슐랭',37.283623118, 127.04536537366);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','만권화밥 아주대점','제 1학생회관(구학생회관) 1층 아슐랭',37.283623118, 127.04536537366);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','삼삼돈까스 아주대점','제 1학생회관(구학생회관) 1층 아슐랭',37.283623118, 127.04536537366);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','밀양국밥냉면','제 1학생회관(구학생회관) 1층 아슐랭',37.283623118, 127.04536537366);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','기숙사식당', '기숙사 식당1층',37.2846389033, 127.045721198);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','팔달관매점','팔달관 1층', 37.2843735854, 127.0444383225);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','다산관매점','',37.283045521483, 127.0477358936);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','코너스톤','연암관 12층', 37.282250377277, 127.04767900987);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFETERIA','선인재식당','송재관 지하 1층',37.28092601812, 127.04725813971);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','팬도로시 아주대 학생회관점','제 1학생회관(구학생회관) 1층',37.28351512217, 127.0450298334);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','팬도로시 아주대도서관점','도서관 카페',37.28199944689, 127.0441719345);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','다산관 카페','다산관 1층',37.283045521483, 127.0477358936);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','무인카페','기숙사 식당 1층',37.2846389033, 127.045721198);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','아이엔지 아주대학교 일신관점','일신관 지하 1층 CU 옆',37.2843050133, 127.04701216725);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대성호관점','성호관 1층',37.2830128699,127.0448265587);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대일신관점','일신관 지하 1층',37.2843050133, 127.04701216725);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대팔달관점','1층 팔달관매점 내',37.2843735854, 127.0444383225);
+
 
 
 
