@@ -26,7 +26,4 @@ public class ResponseMessage {
     public static final String GET_ALL_BUS_ROUTE="전체 버스 노선 조회 성공";
     public static final String GET_ALL_PARTNERSHIP="전체 제휴업체 조회 성공";
     public static final String GET_PARTNERSHIP="제휴업체 조회 성공";
-
-    public static final String GET_ALL_REVIEW_OF_PARTNERSHIP="제휴업체의 리뷰 조회 성공";
-    public static final String CREATE_ALL_REVIEW_OF_PARTNERSHIP="제휴업체의 리뷰 생성 성공";
 }
