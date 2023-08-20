@@ -13,15 +13,17 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 public class Partnership {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name="partnership_id")
-    private Long id;
+    private Long partnership_id;
 
     @Column(nullable = false)
     private String name;
     @Enumerated(value= EnumType.STRING)
     @Column()
     private LocationType category;
+    @Column(nullable = true)
+    private String image;
     @Column()
     private String expired;
     @Column(nullable = false)
@@ -30,8 +32,6 @@ public class Partnership {
     private BigDecimal lat;
     @Column(nullable = false)
     private BigDecimal lng;
-
-
 
 }
 

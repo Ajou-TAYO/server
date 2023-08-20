@@ -18,14 +18,18 @@ public class PartnershipResponseDto {
     private LocationType category;
     private String name;
     private String detail;
+    private String image;
+    private String expired;
     private BigDecimal lat;
     private BigDecimal lng;
 
     public PartnershipResponseDto(Partnership entity){
-        this.partnershipId= entity.getId();
+        this.partnershipId= entity.getPartnership_id();
         this.name= entity.getName();
+        this.image=entity.getImage();
         this.category = entity.getCategory();
         this.detail= entity.getDetail();
+        this.expired= entity.getExpired();
         this.lat=entity.getLat();
         this.lng=entity.getLng();
     }

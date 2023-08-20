@@ -23,11 +23,11 @@ public enum LocationType implements EnumMapperType {
 
 
     //교내시설
-    //FACILITIES("편의시설"),
+    FACILITIES("편의시설"),
     PRINTER("프린터"),
     CAFETERIA("교내식당"),
     CONVENIENCE_STORE("편의점"),
-    PARK("주차장");
+    VENDING("자판기");
 
     private String title ;
     @Override
