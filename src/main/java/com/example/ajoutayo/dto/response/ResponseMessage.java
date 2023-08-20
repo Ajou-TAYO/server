@@ -25,5 +25,9 @@ public class ResponseMessage {
     public static final String GET_BUS_ROUTE="버스 노선 조회 성공";
     public static final String GET_ALL_BUS_ROUTE="전체 버스 노선 조회 성공";
     public static final String GET_ALL_PARTNERSHIP="전체 제휴업체 조회 성공";
-    public static final String GET_PARTNERSHIP="제휴업체 조회 성공";
+    public static final String GET_PARTNERSHIP="특정 제휴업체 조회 성공";
+    public static final String GET_ALL_PARTNERSHIP_BY_CATEGORY="카테고리별 전체 제휴업체 조회 성공";
+    public static final String GET_CAMPUS_AMENITY="특정 캠퍼스 편의시설 조회 성공";
+    public static final String GET_ALL_CAMPUS_AMENITIES="전체 캠퍼스 편의시설 조회 성공";
+    public static final String GET_ALL_CAMPUS_AMENITIES_BY_CATEGORY="카테고리별 전체 편의시설 조회 성공";
 }

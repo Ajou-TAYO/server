@@ -14,7 +14,7 @@ public enum LocationType implements EnumMapperType {
 
     //제휴 업체
     RESTAURANT( "일반음식점"),
-    CAFE("카페/디저트"),
+    CAFE("카페/디저트"), //교내시설도 포함
     PUB("주점"),
     ENTERTAINMENT("엔터테이먼트"),
     BEAUTIY("뷰티"),
@@ -26,7 +26,7 @@ public enum LocationType implements EnumMapperType {
     FACILITIES("편의시설"),
     PRINTER("프린터"),
     CAFETERIA("교내식당"),
-    CONVENIENCE_STORE("편의점"),
+    STORE("편의점"),
     VENDING("자판기");
 
     private String title ;

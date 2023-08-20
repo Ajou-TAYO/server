@@ -29,6 +29,7 @@ public class PartnershipController {
     public ResponseEntity<?> getAllPartnerships(@RequestParam(required = false, name = "category") String categoryStr) {
         List<Partnership> partnershipList = partershipService.getAllPartnership();
         LocationType category = null;
+        String response = ResponseMessage.GET_ALL_PARTNERSHIP;
 
         if (categoryStr != null) {
             try {
@@ -44,9 +45,10 @@ public class PartnershipController {
             partnershipList = partnershipList.stream()
                     .filter(p -> p.getCategory() == finalCategory)
                     .collect(Collectors.toList());
+            response = ResponseMessage.GET_ALL_PARTNERSHIP_BY_CATEGORY;
         }
 
-        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, response, partnershipList));
     }
 
 
