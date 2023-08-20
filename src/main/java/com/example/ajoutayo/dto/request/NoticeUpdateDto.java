@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class BoardUpdateDto {
+public class NoticeUpdateDto {
     private String title;
     private String content;
 }

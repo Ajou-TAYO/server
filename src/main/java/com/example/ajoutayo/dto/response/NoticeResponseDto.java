@@ -1,6 +1,6 @@
 package com.example.ajoutayo.dto.response;
 
-import com.example.ajoutayo.domain.Board;
+import com.example.ajoutayo.domain.Notice;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardResponseDto {
-    private long boardId;
+public class NoticeResponseDto {
+    private long noticeId;
     private String title;
     private String content;
     private int count;
@@ -18,8 +18,8 @@ public class BoardResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public BoardResponseDto(Board entity) {
-        this.boardId = entity.getBoardId();
+    public NoticeResponseDto(Notice entity) {
+        this.noticeId = entity.getNoticeId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.count = entity.getCount();

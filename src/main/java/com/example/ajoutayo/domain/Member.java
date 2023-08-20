@@ -1,6 +1,6 @@
 package com.example.ajoutayo.domain;
 
-import com.example.ajoutayo.exceptions.BoardErrorCode;
+import com.example.ajoutayo.exceptions.NoticeErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -36,7 +36,7 @@ public class Member implements UserDetails {
 
     public void validateRole(Boolean isContaining, Auth... auth) {
         if (isContaining.equals(Arrays.stream(auth).noneMatch(role -> role.equals(this.auth)))) {
-            throw new CustomApiException(BoardErrorCode.NOT_MATCH_ROLE);
+            throw new CustomApiException(NoticeErrorCode.NOT_MATCH_ROLE);
         }
     }
     @Override
