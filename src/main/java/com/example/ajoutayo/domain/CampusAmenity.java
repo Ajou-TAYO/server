@@ -1,6 +1,5 @@
 package com.example.ajoutayo.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
-public class Partnership {
+public class CampusAmenity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long partnership_id;
-
+    private Long amenity_id;
     @Column(nullable = false)
     private String name;
     @Enumerated(value= EnumType.STRING)
@@ -24,14 +22,10 @@ public class Partnership {
     private LocationType category;
     @Column(nullable = true)
     private String image;
-    @Column()
-    private String expired;
     @Column(nullable = false)
     private String detail;
     @Column(nullable = false)
     private BigDecimal lat;
     @Column(nullable = false)
     private BigDecimal lng;
-
 }
-

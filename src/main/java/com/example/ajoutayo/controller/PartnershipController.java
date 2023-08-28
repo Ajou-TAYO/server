@@ -26,19 +26,30 @@ public class PartnershipController {
     }
 
     @GetMapping("")
-    //public ResponseEntity<?> getAllPartnershipWithCategory(@RequestParam(required = false, name = "category") LocationType type){
-    public ResponseEntity<?> getAllPartnerships(LocationType category){
+    public ResponseEntity<?> getAllPartnerships(@RequestParam(required = false, name = "category") String categoryStr) {
         List<Partnership> partnershipList = partershipService.getAllPartnership();
-        if(category!=null) {
-            partnershipList = partnershipList.stream().filter(p -> p.getCategory().getTitle().equals(category.getTitle())).collect(Collectors.toList());
+        LocationType category = null;
+        String response = ResponseMessage.GET_ALL_PARTNERSHIP;
+
+        if (categoryStr != null) {
+            try {
+                category = LocationType.valueOf(categoryStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw e;
+            }
         }
-            return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_PARTNERSHIP, partnershipList));
+
+        final LocationType finalCategory = category;
+
+        if (finalCategory != null) {
+            partnershipList = partnershipList.stream()
+                    .filter(p -> p.getCategory() == finalCategory)
+                    .collect(Collectors.toList());
+            response = ResponseMessage.GET_ALL_PARTNERSHIP_BY_CATEGORY;
+        }
+
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, response, partnershipList));
     }
-//    @GetMapping("/{id}/reviews")
-//    public ResponseEntity<?> getAllReviewsOfPartnership(@PathVariable("id") Long id){
-//        //PartnershipResponseDto partnership = partershipService.getPartnership(id);
-//        List<Review> reviewList = partershipService.getAllReviewByPartnershipId(id);
-//        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_ALL_REVIEW_OF_PARTNERSHIP, reviewList));
-//    }
+
 
 }

@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH,"/notices/{id}").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers(HttpMethod.POST,"/notices/{id}").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers("/notices/**").permitAll()
+                .antMatchers("/campus/**").permitAll()
                 .antMatchers("/bus/location/**").permitAll()
                 .antMatchers("/bus/notices/**").permitAll()
                 .antMatchers("/bin/**").permitAll()
