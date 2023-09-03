@@ -40,7 +40,6 @@ public class MemberService {
     public MemberResponseDto signup(SignupRequestDto signupRequestDto) {
         checkEmailDuplicate(signupRequestDto.getEmail());
         int idx = signupRequestDto.getEmail().indexOf("@");
-
         Member member = Member.builder()
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
@@ -131,5 +130,24 @@ public class MemberService {
                 .flatMap(memberRepository::findOneWithAuthByEmail)
                 .orElseThrow(() -> new CustomApiException(MemberErrorCode.MEMBER_NOT_FOUND));
         return member.getNickname();
+    }
+
+    @Transactional
+    public void updateNickname(String nickname){
+        Member member = SecurityUtil.getCurrentUsername()
+                .flatMap(memberRepository::findOneWithAuthByEmail)
+                .orElseThrow(() -> new CustomApiException(MemberErrorCode.MEMBER_NOT_FOUND));
+        member.setNickname(nickname);
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void updatePassword(String password){
+        Member member = SecurityUtil.getCurrentUsername()
+                .flatMap(memberRepository::findOneWithAuthByEmail)
+                .orElseThrow(() -> new CustomApiException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+        member.setPassword(passwordEncoder.encode(password));
+        memberRepository.save(member);
     }
 }

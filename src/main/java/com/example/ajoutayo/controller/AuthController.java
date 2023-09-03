@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/members/signup")
+@RequestMapping("/my/signup")
 public class AuthController {
     private final MemberService memberService;
 

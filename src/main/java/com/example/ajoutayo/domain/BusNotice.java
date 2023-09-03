@@ -18,6 +18,9 @@ public class BusNotice {
     private Long busNoticeId;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String url;
 
 }
