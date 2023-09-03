@@ -17,7 +17,7 @@ public enum LocationType implements EnumMapperType {
     CAFE("카페/디저트"), //교내시설도 포함
     PUB("주점"),
     ENTERTAINMENT("엔터테이먼트"),
-    BEAUTIY("뷰티"),
+    BEAUTY("뷰티"),
     HEALTH("의료/건강"),
     ETC("기타"),
 
