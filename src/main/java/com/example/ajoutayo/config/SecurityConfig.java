@@ -51,8 +51,8 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members/login").permitAll()
-                .antMatchers("/members/signup/**").permitAll()
+                .antMatchers("/my/login").permitAll()
+                .antMatchers("/my/signup/**").permitAll()
                 .antMatchers("/notices/new").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers(HttpMethod.DELETE,"/notices/{id}").hasAnyRole("ADMIN","SUPERADMIN")
                 .antMatchers(HttpMethod.PATCH,"/notices/{id}").hasAnyRole("ADMIN","SUPERADMIN")
@@ -67,9 +67,9 @@ public class SecurityConfig {
 
                 .and()
                 .logout()
-                .logoutSuccessUrl("/members/logout")
+                .logoutSuccessUrl("/my/logout")
                 .invalidateHttpSession(true) //세션 날리기
-                .logoutSuccessUrl("/members/login")
+                .logoutSuccessUrl("/my/login")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/accessDenied")

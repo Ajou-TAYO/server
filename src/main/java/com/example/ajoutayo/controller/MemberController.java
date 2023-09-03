@@ -2,13 +2,17 @@ package com.example.ajoutayo.controller;
 
 import com.example.ajoutayo.dto.StatusCode;
 import com.example.ajoutayo.dto.request.LoginRequestDto;
+import com.example.ajoutayo.dto.request.UpdateNicknameRequestDto;
+import com.example.ajoutayo.dto.request.UpdatePasswordRequestDto;
 import com.example.ajoutayo.dto.response.DefaultResponse;
+import com.example.ajoutayo.dto.response.NicknameResponseDto;
 import com.example.ajoutayo.dto.response.ResponseMessage;
 import com.example.ajoutayo.dto.response.TokenDto;
 import com.example.ajoutayo.exceptions.AuthErrorCode;
 import com.example.ajoutayo.exceptions.CustomApiException;
 import com.example.ajoutayo.jwt.JwtAuthenticationFilter;
 import com.example.ajoutayo.jwt.JwtTokenProvider;
+import com.example.ajoutayo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +29,13 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/my")
 public class MemberController {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    private final MemberService memberService;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -57,5 +64,28 @@ public class MemberController {
     public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.LOGOUT_SUCCESS));
+    }
+
+    @GetMapping("/nickname/reset")
+    public ResponseEntity<?> getNickname(){
+        String nickname = memberService.getNicknameWithAuth();
+        return ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.GET_NICKNAME, nickname));
+    }
+
+    @PostMapping("/nickname/reset")
+    public ResponseEntity<?> updateNickname(@Valid @RequestBody UpdateNicknameRequestDto updateNicknameRequestDto){
+        memberService.updateNickname(updateNicknameRequestDto.getNickname());
+        String nickname = memberService.getNicknameWithAuth();
+        return  ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.UPDATE_NICKNAME, nickname));
+    }
+
+    @PostMapping("/password/reset")
+    public ResponseEntity<?> updatePassword(@Valid @RequestBody UpdatePasswordRequestDto updatePasswordRequestDto){
+        if (!updatePasswordRequestDto.arePasswordsMatching()) {
+            // checkPw와 newPw가 일치하지 않을 경우 예외 처리
+            throw new CustomApiException(AuthErrorCode.NOT_MATCHING_PASSWORD);
+        }
+        memberService.updatePassword(updatePasswordRequestDto.getNewPw());
+        return  ResponseEntity.ok(DefaultResponse.res(StatusCode.OK, ResponseMessage.UPDATE_PASSWORD));
     }
 }

@@ -16,9 +16,9 @@ INSERT INTO bus_route(name, type,dep_bus_stop_id,arr_bus_stop_id, department_tim
 INSERT INTO bus_route(name, type,dep_bus_stop_id,mid_bus_stop_id,arr_bus_stop_id, department_time_list) values ('광교중앙역','하교',5,4,1,'18:10');
 
 # 버스 공지사항(아주대학교 홈페이지 공지사항)
-INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214712');
-INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214334&article.offset=0');
-INSERT INTO bus_notice(url) values('https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=211901&article.offset=10&articleLimit=10&srSearchVal=%EB%B2%84%EC%8A%A4');
+INSERT INTO bus_notice(title, url) values('광교중앙역 등교 버스 도착 장소 변경 안내','https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214712');
+INSERT INTO bus_notice(title, url) values('5.12(금) 당일 광교중앙역 본교 버스 운행 시각 조정 안내','https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=214334&article.offset=0');
+INSERT INTO bus_notice(title, url) values('아주대학교 셔틀버스 운행 시각 조정 안내','https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=211901&article.offset=10&articleLimit=10&srSearchVal=%EB%B2%84%EC%8A%A4');
 
 # 제휴업체
 INSERT INTO partnership(category,name,detail,expired,lat,lng,image) values('ENTERTAINMENT','이스케이프탑 수원점','네이버 예약 결제 후 매장 방문 시, 방탈출카페 20% 할인 (매장에서 학생증 제시)','12/31',127.029984,37.2652733,'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTExMDFfMTM1%2FMDAxNTcyNTg3MzU2MjI5.40PU5m6gOMiQ7GTPjPuKXQ5Ti1qlIBtsDKTXHqrVjYEg.pTbCTOF0F0HFmJy7ubjEtMfOVkcODtrE0oSzT4XgwKgg.JPEG.hd_dn%2F20190309_184026.jpg&type=sc960_832');
@@ -53,7 +53,13 @@ INSERT INTO campus_amenity(category, name, detail, lat,lng) values('CAFE','아�
 INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대성호관점','성호관 1층',37.2830128699,127.0448265587);
 INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대일신관점','일신관 지하 1층',37.2843050133, 127.04701216725);
 INSERT INTO campus_amenity(category, name, detail, lat,lng) values('STORE','CU 아주대팔달관점','1층 팔달관매점 내',37.2843735854, 127.0444383225);
-
-
-
-
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('PRINTER','신학생회관 프린터','1층 웹PC 검색대', 37.2831386027, 127.04590353239);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('PRINTER','신학생회관 팩스','제 2학생회관(신학생회관) 116호 종합지원센터',37.2831386027, 127.04590353239);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('PRINTER','팔달관 프린터','1층 계단실', 37.28438253749,127.0445933813);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('PRINTER','인문대 프린터실','성호관 103-1호, 무료', 37.28298358089,127.0448406368);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('FACILITIES','다산관 로비','다산관 1층', 37.2830410367,127.04768514686);
+INSERT INTO campus_amenity(category, name, detail, lat,lng) values('FACILITIES','더테라스','도서관 테라스', 37.28266393586, 127.0442456192);
+INSERT INTO campus_amenity(category, name, lat,lng) values('FACILITIES','테니스장', 37.28212126349, 127.04942393254);
+INSERT INTO campus_amenity(category, name, lat,lng) values('FACILITIES','체육관', 37.2799603577, 127.04545902091);
+INSERT INTO campus_amenity(category, name, detail,lat,lng) values('STORE','아주문고','제1학생회관(구학생회관) 1층 서점', 37.28356895239, 127.045635977);
+INSERT INTO campus_amenity(category, name, detail,lat,lng) values('STORE','안경점', '성호관 1층',37.28300609618, 127.04486884122);
