@@ -24,8 +24,8 @@ public class CampusAmenity {
     private String image;
     @Column(nullable = true)
     private String detail;
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 14)
     private BigDecimal lat;
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 14)
     private BigDecimal lng;
 }

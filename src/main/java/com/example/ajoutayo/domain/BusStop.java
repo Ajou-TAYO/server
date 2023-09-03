@@ -18,8 +18,8 @@ public class BusStop {
     @Column(updatable = false, unique = true, nullable = false, length = 15)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 14)
     private BigDecimal lat;
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 14)
     private BigDecimal lng;
 }
