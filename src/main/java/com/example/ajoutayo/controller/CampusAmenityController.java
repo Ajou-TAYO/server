@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(originPatterns = "http://localhost:8080, http://121.137.66.90:5173")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/campus")

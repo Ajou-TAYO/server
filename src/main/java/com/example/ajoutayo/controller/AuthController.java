@@ -9,13 +9,11 @@ import com.example.ajoutayo.dto.response.ResponseMessage;
 import com.example.ajoutayo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(originPatterns = "http://localhost:8080, http://121.137.66.90:5173")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/my/signup")

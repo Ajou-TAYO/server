@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@CrossOrigin(originPatterns = "http://localhost:8080, http://121.137.66.90:5173")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/notices")

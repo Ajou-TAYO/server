@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(originPatterns = "http://localhost:8080, http://121.137.66.90:5173")
 @RequiredArgsConstructor
 @RestController
 public class WebSocketController {
